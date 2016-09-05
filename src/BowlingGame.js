@@ -20,7 +20,7 @@ class BowlingGame {
   }
 
   rollRange(attempts, pinsDown) {
-    for (let count = 0; count < attempts; count++) {
+    for (let count = 0; count <= attempts; count++) {
       this.roll(pinsDown);
     }
   }
