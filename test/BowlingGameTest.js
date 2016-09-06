@@ -69,4 +69,15 @@ describe('Bowling Game', () => {
       expect(playerOne.getTotalScore()).to.equal(32);
     });
   });
+  describe('Regular game with a strike and a spare', () => {
+    it('should validate game with one strike and a spare', () => {
+      playerOne.roll(10);
+      playerOne.roll(5);
+      playerOne.roll(5);
+      playerOne.roll(1);
+      playerOne.roll(1);
+      playerOne.rollRange(17, 0);
+      expect(playerOne.getTotalScore()).to.equal(33);
+    });
+  });
 });
