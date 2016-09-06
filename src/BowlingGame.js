@@ -13,9 +13,13 @@ class BowlingGame {
   roll(pins) {
     if (this.frames.length < this.maxFrames) {
       this.rolls.push(pins);
-      if (this.isLastIndexOfFrame()) {
-        this.getNextFrame();
-      }
+      this.initScore();
+    }
+  }
+
+  initScore() {
+    if (this.isLastIndexOfFrame()) {
+      this.getNextFrame();
     }
   }
 
@@ -32,16 +36,22 @@ class BowlingGame {
   getNextFrame() {
     if (this.frames.length < this.maxFrames) {
       this.frames.push(this.rolls);
+    } else if (this.frames.length === this.maxFrames) {
+      this.frames.push(this.rolls);
     }
     this.rolls = [];
   }
 
-  isStrike(roll) {
-    return roll[0] === this.maxPinsDown;
+  isNextArray(nextFrame) {
+    return Array.isArray(nextFrame);
   }
 
-  isSpare(roll) {
-    return roll[0] + roll[1] === this.maxPinsDown;
+  isStrike(frame) {
+    return this.getFirstIndex(frame) === this.maxPinsDown;
+  }
+
+  isSpare(frame) {
+    return this.getPointsFrom(frame) === this.maxPinsDown;
   }
 
   getTotalScore() {
@@ -60,19 +70,27 @@ class BowlingGame {
     return score;
   }
 
-  getStrikeBonus(frame) {
-    return frame[0] + frame[1];
+  getStrikeBonus(nextFrame) {
+    const strikeBonus = this.isNextArray(nextFrame) ?
+                        this.getPointsFrom(nextFrame) : false;
+    return strikeBonus;
   }
 
-  getSpareBonus(frame) {
-    if (this.rolls.length) return this.rolls[0];
-    return frame[0];
+  getSpareBonus(nextFrame) {
+    if (this.rolls.length) {
+      return this.rolls[0];
+    }
+    return this.getFirstIndex(nextFrame);
   }
 
-  getPointsFrom(frame) {
-    return frame.reduce((previous, current) => {
+  getPointsFrom(currentFrame) {
+    return currentFrame.reduce((previous, current) => {
       return previous + current;
     });
+  }
+
+  getFirstIndex(frame) {
+    return frame[0];
   }
 }
 
