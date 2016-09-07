@@ -13,14 +13,12 @@ class BowlingGame {
   roll(pins) {
     if (this.frames.length < this.maxFrames) {
       this.rolls.push(pins);
-      this.initScore();
+      this.checkFrame();
     }
   }
 
-  initScore() {
-    if (this.isLastIndexOfFrame()) {
-      this.getNextFrame();
-    }
+  checkFrame() {
+    return this.isLastIndexOfFrame() ? this.getNextFrame() : false;
   }
 
   rollRange(attempts, pinsDown) {
@@ -35,8 +33,6 @@ class BowlingGame {
 
   getNextFrame() {
     if (this.frames.length < this.maxFrames) {
-      this.frames.push(this.rolls);
-    } else if (this.frames.length === this.maxFrames) {
       this.frames.push(this.rolls);
     }
     this.rolls = [];
@@ -71,16 +67,11 @@ class BowlingGame {
   }
 
   getStrikeBonus(nextFrame) {
-    const strikeBonus = this.isNextArray(nextFrame) ?
-                        this.getPointsFrom(nextFrame) : false;
-    return strikeBonus;
+    return this.isNextArray(nextFrame) ? this.getPointsFrom(nextFrame) : false;
   }
 
   getSpareBonus(nextFrame) {
-    if (this.rolls.length) {
-      return this.rolls[0];
-    }
-    return this.getFirstIndex(nextFrame);
+    return this.rolls.length ? this.rolls[0] : this.getFirstIndex(nextFrame);
   }
 
   getPointsFrom(currentFrame) {
