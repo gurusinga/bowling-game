@@ -7,7 +7,7 @@
   "env": {
     #List: http://eslint.org/docs/user-guide/configuring#specifying-environments
     "browser": true,
-    "jasmine": true
+    "mocha": true
   },
   "rules": {
     #Can be automatically transformed everywhere with `eslint --fix`
