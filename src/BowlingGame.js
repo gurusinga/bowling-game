@@ -75,9 +75,7 @@ class BowlingGame {
   }
 
   getPointsFrom(currentFrame) {
-    return currentFrame.reduce((previous, current) => {
-      return previous + current;
-    });
+    return currentFrame.reduce((previous, current) => previous + current);
   }
 
   getFirstIndex(frame) {
